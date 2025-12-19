@@ -1,3 +1,5 @@
+//** welcome kamalakannan **//
+
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/Dialog",
@@ -7,14 +9,14 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
-    'sap/m/Link',
+    //'sap/m/Link',
     'sap/m/MessageItem',
     'sap/m/MessageView',
     'sap/m/Button',
     'sap/ui/core/IconPool',
     'sap/m/Bar',
     'sap/m/Title'
-], (Controller, Dialog, Fragment, Spreadsheet, formatter, Filter, FilterOperator, JSONModel, Link, MessageItem, MessageView, Button, IconPool, Bar, Title) => {
+], (Controller, Dialog, Fragment, Spreadsheet, formatter, Filter, FilterOperator, JSONModel, MessageItem, MessageView, Button, IconPool, Bar, Title) => {
     "use strict";
 
     return Controller.extend("marineworkbook.controller.marineworkbook", {
@@ -31,9 +33,7 @@ sap.ui.define([
             this.getOwnerComponent().getModel("viewSettingsModel").setProperty("/ErrorBtnVis", false);
             this.getOwnerComponent().getModel("viewSettingsModel").setProperty("/TodaysDate", new Date());
             this.getOwnerComponent().getModel("viewSettingsModel").setProperty("/NoOfRowsToFreeze", 0);
-            // this.getOwnerComponent().getModel("viewSettingsModel").setProperty("/NoOfRowsToFreezeRegrades", 0);
         },
-
 
         _initMessageViewDialog: function () {
             var that = this;
