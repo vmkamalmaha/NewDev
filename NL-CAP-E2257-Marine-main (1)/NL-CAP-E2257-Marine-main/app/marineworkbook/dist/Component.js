@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/UIComponent","marineworkbook/model/models"],(e,o)=>{"use strict";return e.extend("marineworkbook.Component",{metadata:{manifest:"json",interfaces:["sap.ui.core.IAsyncContentCreation"]},init(){e.prototype.init.apply(this,arguments);this.setModel(o.createDeviceModel(),"device");this.getRouter().initialize();this.getModel().read("/TokenData",{success:function(e){console.log("TokenData fetched successfully:",e)},error:function(e){console.error("Error fetching TokenData:",e)}})}})});
+//# sourceMappingURL=Component.js.map

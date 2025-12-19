@@ -1,0 +1,100 @@
+{
+  "name": "zmscwb",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap-cloud-sdk/core": "^1.54.2",
+    "@sap-cloud-sdk/http-client": "^3.2.0",
+    "@sap/audit-logging": "^6.1.0",
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "2.0.0",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.7",
+    "@sap/hana-client": "^2.21.31",
+    "@sap/xsenv": "3.4.0",
+    "@sap/xssec": "3.6.0",
+    "express": "^4",
+    "hdb": "^0.19.9",
+    "passport": "^0.6.0"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^7",
+    "@sap/eslint-plugin-cds": "^3",
+    "@sap/hdi-deploy": "4.9.5",
+    "@sap/ux-specification": "^1.120.15",
+    "eslint": "^9"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "undeploy": "cf undeploy zmscwb --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-marineworkbook": "cds watch --open marineworkbook/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "CTRM_FILTER": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "CTRM_FILTER"
+        }
+      },
+      "CTRM_TABLE": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "CTRM_TABLE"
+        }
+      },
+      "CTRM_LOGIN": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "CTRM_LOGIN"
+        }
+      },
+      "SCWB": {
+        "kind": "odata",
+        "model": "srv/external/SCWB",
+        "credentials": {
+          "destination": "S4HD",
+          "path": "/sap/opu/odata/sap/ZP2C_WORKBOOK_API_SRV"
+        }
+      },
+      "SCWB_MARINE": {
+        "kind": "odata",
+        "model": "srv/external/SCWB_MARINE",
+        "credentials": {
+          "destination": "S4HD",
+          "path": "/sap/opu/odata/sap/ZP2C_MARINES_WORKBOOK_API_SRV"
+        }
+      },
+      "SAP_CLOUD_DESTINATION_SERVICE": {
+        "kind": "odata",
+        "csrf": true,
+        "csrfInBatch": true,
+        "credentials": {
+          "destination": "SAP_CLOUD_DESTINATION_SERVICE",
+          "path": "/v1/destinations/"
+        }
+      },
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "db": {
+        "kind": "hana"
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
+    "auth": {
+      "passport": {
+        "strategy": "JWT"
+      }
+    }
+  },
+  "sapux": [
+    "app/marinescheduler"
+  ]
+}

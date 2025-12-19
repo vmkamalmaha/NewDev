@@ -1,0 +1,427 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:smarttable="sap.ui.comp.smarttable"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:c="sap.ui.core"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:plugins="sap.m.plugins"
+    height="100%">
+<smarttable:SmartTable tableType="Table" id="marineSmartTable" enableAutoBinding="false" smartFilterId="marineSmartFilterBar" enableAutoColumnWidth="true" fitContainer="true" useTablePersonalisation="true" header="Trades" entitySet="MarineScheduler" showRowCount="true" beforeRebindTable="onBeforeRebindTable" useInfoToolbar="On" persistencyKey="smartTableVariant" exportType="GW" enableCopy="false" enablePaste="false" enableExport="true" beforeExport="onBeforeExport"  requestAtLeastFields="ID, InterCompanyDeal, SAPUnit, Unit" ignoreFromPersonalisation="CompanyCode, ContractUrl, Delivery Window, DeliveryPeriodSAPformat, Demand Material, ErrorCode, ErrorDetailSet_Id, ID, InterCompanyDeal, InvoiceQuantity, IsTptTicketUpdated, Matkl, Mode of Transport, MOT, Nom Key/Delivery Reference, NominalQuantity, Nomination Number, Obligation, Plant, PrevNomVolume, PrevTicketVolume, SAPContractItem, SAPLocation, DeliveryWindow,YNomUrl,ZNomUrl, TPTLocationId, Strategy,ToleranceMax, Vehicleid, SectionVal, MOTId, MOTVal_Value,NominationNumber,DeliveryReference,ScheduledMaterial, DemandMaterial,ZNomItm,YNomItm,Unit,SAPUnit,Trader,RecordType"> 
+				<smarttable:customToolbar>
+					<OverflowToolbar design="Transparent">
+						<ToolbarSpacer/>
+						<Button type="Emphasized" text="Create/Update Nom" press="onPressCreateUpdateNom" />
+						<Button type="Emphasized" text="Create/Correct Ticket" press="onPressCreateCorrectTicket" />
+						<Button text="Zero Out" press="onPressZeroOut" />
+						<Button text="Export" press="onPressExport"></Button>
+					</OverflowToolbar>
+				</smarttable:customToolbar>
+				<smarttable:layoutData>
+					<m:FlexItemData growFactor="1" baseSize="0%"/>
+				</smarttable:layoutData>
+        <table:Table id="marineSmartTableInner" rowSelectionChange="onSelectionChange" enableColumnFreeze="true" threshold="10000" enableCellFilter="false" rowsUpdated="onRowsUpdated">
+    <table:rowMode>
+        <rowmodes:Auto xmlns:rowmodes="sap.ui.table.rowmodes" rowContentHeight="35"/>
+    </table:rowMode>
+
+    <table:rowSettingsTemplate>
+        <table:RowSettings 
+            highlight="{ parts: [{path: 'ErrorCode'}], formatter: '.formatter.getErrorHighlightColor'}"/>
+    </table:rowSettingsTemplate>
+
+    <table:columns>
+        <!-- SAP Status -->
+        <table:Column width="13rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "SapStatus", "columnIndex" : "0", "sortProperty": "SapStatus", "filterProperty": "SapStatus"}'/>
+            </table:customData>
+            <Label text="SAP Status"/>
+            <table:template>
+             <l:HorizontalLayout>
+								<HBox justifyContent="SpaceBetween">
+                                    <Text text="{SapStatus}" class="sapUiTinyMarginTop"/>
+                                    <Button
+                                        class="sapUiLargeMarginBegin sapUiSizeCompact"
+										icon="{= ${ErrorCode} === 'W' ? 'sap-icon://alert' : 'sap-icon://status-error' }"
+										type="{= ${ErrorCode} === 'E' ? 'Reject' : 'Attention' }"
+										text="{path: 'ErrorDetailSet', formatter: '.formatter.getErrorIconText'}"
+										visible="{path: 'ErrorDetailSet', formatter: '.formatter.getErrorIconVisible'}"
+                                        press="handleDialogPress"/>
+									</HBox>
+                                </l:HorizontalLayout>
+            </table:template>
+        </table:Column>
+
+        <!-- Cargo Reference -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "CargoReference", "columnIndex" : "1", "sortProperty": "CargoReference", "filterProperty": "CargoReference"}'/>
+            </table:customData>
+					<Button type="Transparent"  text="TT Date*" iconFirst = "false" icon="sap-icon://information" press="sap.m.MessageBox.information('Title Transfer Date')" class="sapUiSmallMarginLeft customButtonTextColor"/>
+            <Label text="Cargo Reference"/>
+            <table:template>
+                <Text text="{CargoReference}"/>
+            </table:template>
+        </table:Column>
+
+    <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "NomNumber", "columnIndex" : "2", "sortProperty": "NomNumber", "filterProperty": "NomNumber"}'/>
+            </table:customData>
+            <Label text="Nomination Number"/>
+            <table:template>
+                <smartField:SmartField value="{NomNumber}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Trade Number -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "TradeNumber", "columnIndex" : "3", "sortProperty": "TradeNumber", "filterProperty": "TradeNumber", "type":"numeric"}'/>
+            </table:customData>
+            <Label text="Trade"/>
+            <table:template>
+                <Text text="{TradeNumber}-{SectionVal}"/>
+            </table:template>
+        </table:Column>
+
+           <!-- Grade -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "SAPContract", "columnIndex" : "4", "filterProperty": "SAPContract"}'/>
+            </table:customData>
+            <Label text="Contract"/>
+            <table:template>
+                <Link text="{SAPContract}"  href="{ContractUrl}" target="_blank"/>
+            </table:template>
+        </table:Column>
+
+            <!-- Ynom -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "YNomHdr", "columnIndex" : "5", "filterProperty": "YNomHdr"}'/>
+            </table:customData>
+            <Label text="Y Nom"/>
+            <table:template>
+                <Link text="{YNomHdr}-{YNomItm}" href="{YNomUrl}" target="_blank"/>
+                <!-- <Text text="{YNom}"/> -->
+            </table:template>
+        </table:Column>
+
+    <!-- ZNom -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "ZNomHdr", "columnIndex" : "6", "filterProperty": "ZNomHdr"}'/>
+            </table:customData>
+            <Label text="Z Nom"/>
+            <table:template>
+                <Link text="{ZNomHdr}-{ZNomItm}" href="{ZNomUrl}" target="_blank"/>
+            </table:template>
+        </table:Column>
+
+
+        <!-- Grade -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "Grade", "columnIndex" : "7", "sortProperty": "Grade", "filterProperty": "Grade"}'/>
+            </table:customData>
+            <Label text="Grade"/>
+            <table:template>
+                <Text text="{Grade}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- ScheduledMaterialDesc -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "ScheduledMaterialDesc", "columnIndex" : "8", "filterProperty": "ScheduledMaterialDesc"}'/>
+            </table:customData>
+            <Label text="Scheduled Material"/>
+            <table:template>
+                <Text text="{ScheduledMaterialDesc}"/>
+            </table:template>
+        </table:Column>
+
+         <!-- DemandMaterialDesc -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "DemandMaterialDesc", "columnIndex" : "9", "filterProperty": "DemandMaterialDesc"}'/>
+            </table:customData>
+            <Label text="Demand Material"/>
+            <table:template>
+                <Text text="{DemandMaterialDesc}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Counterparty -->
+        <table:Column width="12rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "CounterParty", "columnIndex" : "10", "filterProperty": "CounterParty"}'/>
+            </table:customData>
+            <Label text="CounterParty"/>
+            <table:template>
+                <Text text="{CounterParty}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- BuySell -->
+        <table:Column width="8rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "BuySell", "columnIndex" : "11", "filterProperty": "BuySell"}'/>
+            </table:customData>
+            <Label text="Buy/Sell"/>
+            <table:template>
+                <Text text="{BuySell}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Incoterms -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "Incoterms", "columnIndex" : "12", "filterProperty": "Incoterms"}'/>
+            </table:customData>
+            <Label text="INCO"/>
+            <table:template>
+                <Text text="{Incoterms}"/>
+            </table:template>
+        </table:Column>
+        <!-- Vessel -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "Vessel", "columnIndex" : "13", "sortProperty": "Vessel", "filterProperty": "Vessel"}'/>
+            </table:customData>
+            <Label text="Vessel"/>
+            <table:template>
+                <smartField:SmartField value="{Vessel}" change="onVesselChange"/>
+            </table:template>
+        </table:Column>
+
+         <!-- Transport System -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "TransportSystem", "columnIndex" : "14", "filterProperty": "TransportSystem"}'/>
+            </table:customData>
+            <Label text="Transport System*"/>
+            <table:template>
+                <smartField:SmartField value="{TransportSystem}" change="onTransportChange"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Carrier -->
+        <table:Column width="10rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "Carrier", "columnIndex" : "15", "filterProperty": "Carrier"}'/>
+            </table:customData>
+            <Label text="Carrier"/>
+            <table:template>
+                <smartField:SmartField value="{Carrier}" change="onCarrierChange"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Shipper -->
+        <table:Column width="12rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "Shipper", "columnIndex" : "16", "filterProperty": "Shipper"}'/>
+            </table:customData>
+            <Label text="Shipper*"/>
+            <table:template>
+                <smartField:SmartField value="{Shipper}" change="onShipperChange"/>
+            </table:template>
+        </table:Column>
+
+        <!-- FCCharterDoc -->
+        <table:Column width="14rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "FCCharterDoc", "columnIndex" : "17", "filterProperty": "FCCharterDoc"}'/>
+            </table:customData>
+            <Label text="Marine Planning location"/>
+            <table:template>
+                <smartField:SmartField value="{FCCharterDoc}" change="onFCDocChange"/>
+            </table:template>
+        </table:Column>
+
+        <!-- LoadLocation -->
+        <table:Column width="14rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "LoadLocation", "columnIndex" : "18", "filterProperty": "LoadLocation"}'/>
+            </table:customData>
+            <Label text="Load Location"/>
+            <table:template>
+                <Text text="{LoadLocation}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Load Window -->
+        <table:Column width="12rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "LoadWindow", "columnIndex" : "19", "sortProperty": "LoadWindow", "filterProperty": "LoadWindow"}'/>
+            </table:customData>
+            <Label text="Load Window"/>
+            <table:template>
+                <Text text="{LoadWindow}"/>
+            </table:template>
+        </table:Column>
+
+        <!-- Delivery Window -->
+        <!-- <table:Column width="12rem" visible="false">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "DeliveryWindow", "columnIndex" : "18", "sortProperty": "DeliveryWindow", "filterProperty": "DeliveryWindow"}'/>
+            </table:customData>
+            <Label text="Delivery Window"/>
+            <table:template>
+                <Text text="{DeliveryWindow}"/>
+            </table:template>
+        </table:Column> -->
+
+       <!-- Ship To -->
+        <table:Column width="12rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "ShipTo", "columnIndex" : "20", "filterProperty": "ShipTo"}'/>
+            </table:customData>
+					<Button type="Transparent"  text="Ship To*" iconFirst = "false" icon="sap-icon://information" press="sap.m.MessageBox.information('Title Transfer Location')" class="sapUiSmallMarginLeft customButtonTextColor"/>
+            <table:template>
+                <smartField:SmartField value="{ShipTo}" change="onShipToFieldChange"/>
+            </table:template>
+        </table:Column>
+
+
+     <!-- Ship To ShipToLocation-->
+        <table:Column width="12rem">
+            <table:customData>
+                <c:CustomData key="p13nData" value='\{"columnKey": "ShipToLocation", "columnIndex" : "21", "filterProperty": "ShipToLocation"}'/>
+            </table:customData>
+				<Button type="Transparent"  text="Ship To Location" iconFirst = "false" icon="sap-icon://information" press="sap.m.MessageBox.information('Title Transfer Location')" class="sapUiSmallMarginLeft customButtonTextColor"/>
+            <table:template>
+                <Text text="{ShipToLocation}"/>
+            </table:template>
+        </table:Column>
+
+
+            <!-- TPTLocation -->
+            <table:Column width="12rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "TPTLocation", "columnIndex" : "22", "filterProperty": "TPTLocation"}'/>
+                </table:customData>
+                <Label text="TPT Location"/>
+                <table:template>
+                    <Text text="{TPTLocation}"/>
+                </table:template>
+            </table:Column>
+
+            <!-- CargoDestination -->
+            <table:Column width="14rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "CargoDestination", "columnIndex" : "23", "filterProperty": "CargoDestination"}'/>
+                </table:customData>
+                	<Button type="Transparent"  text="Cargo Destination" iconFirst = "false" icon="sap-icon://information" press="sap.m.MessageBox.information('Final Destination')" class="sapUiSmallMarginLeft customButtonTextColor"/>
+                <table:template>
+                <Input value="{CargoDestination}" id="cargoDest" change="onFieldChange"/>
+                </table:template>
+            </table:Column>
+
+            <!-- ContractVolume -->
+            <table:Column width="10rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "ContractVolume", "columnIndex" : "24", "filterProperty": "ContractVolume"}'/>
+                </table:customData>
+                <Label text="Contract Volume"/>
+                <table:template>
+                    <l:HorizontalLayout>
+                    <smartField:SmartField value="{ContractVolume}" editable="false"/>
+                    <Text text="{SAPUnit}"  class="sapUiSmallMarginBegin"/>
+                    </l:HorizontalLayout>
+                </table:template>
+            </table:Column>
+
+            <!-- ZeroOutVolume -->
+            <table:Column width="10rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "ZeroOutVolume", "columnIndex" : "25", "filterProperty": "ZeroOutVolume"}'/>
+                </table:customData>
+                <Label text="Zero out Volume"/>
+                <table:template>
+                    <l:HorizontalLayout>
+                    <smartField:SmartField value="{ZeroOutVolume}" editable="false"/>
+                    <Text text="{Unit}"  class="sapUiSmallMarginBegin"/>
+                    </l:HorizontalLayout>
+                </table:template>
+            </table:Column>
+
+            <!-- NomVolume -->
+            <table:Column width="14rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "NomVolume", "columnIndex" : "26", "filterProperty": "NomVolume"}'/>
+                </table:customData>
+                <Label text="Nom Volume (BBL)*"/>
+                <table:template>
+                <l:HorizontalLayout>
+                <smartField:SmartField value="{NomVolume}" /> <!-- change="onNomVolChange"/> -->
+                <Text text="{SAPUnit}"  class="sapUiSmallMarginBegin sapUiTinyMarginTop"/>
+                <Button id="undoButton" icon="sap-icon://reset" press="onUndoNomVolPress" class="sapUiSmallMarginBegin" visible="{parts:[{path: 'PrevNomVolume'}], formatter: '.formatter.previousVolVisible'}" />
+                </l:HorizontalLayout>
+
+                </table:template>
+            </table:Column>
+
+            <!-- Tolerance -->
+            <table:Column width="8rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "ToleranceMin", "columnIndex" : "27", "filterProperty": "ToleranceMin"}'/>
+                </table:customData>
+                <Label text="Tolerance(Min - Max) (%)"/>
+                <table:template>
+                    <Text text="{ToleranceMin} - {ToleranceMax}"/>
+                </table:template>
+            </table:Column>
+
+            <!-- BLDate -->
+            <table:Column width="12rem" hAlign="Center">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "BLDate", "columnIndex" : "28", "filterProperty": "BLDate"}'/>
+                </table:customData>
+                <Label text="B/L Date*"/>
+                <table:template>
+                <smartField:SmartField value="{BLDate}" id="blDateSF"  change="onFieldChange" /> <!--change="onBLDateChange"/> -->
+                <!-- <DatePicker value="{BLDate}" maxDate="{viewSettingsModel>/TodaysDate}" change="onBLDateChange"/>  -->
+
+                </table:template>
+            </table:Column>
+
+            <!-- TTDate -->
+            <table:Column width="12rem" hAlign="Center">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "TitleTransferDate", "columnIndex" : "29", "filterProperty": "TitleTransferDate"}'/>
+                </table:customData>
+					<Button type="Transparent"  text="TT Date*" iconFirst = "false" icon="sap-icon://information" press="sap.m.MessageBox.information('Title Transfer Date')" class="sapUiSmallMarginLeft customButtonTextColor"/>
+                <table:template>
+                <!-- <DatePicker value="{TitleTransferDate}" maxDate="{viewSettingsModel>/TodaysDate}" change="onTTLDateChange"/>  -->
+                <smartField:SmartField value="{TitleTransferDate}"  id="ttDateSF"  change="onFieldChange"/>  <!-- change="onTTLDateChange"/> -->
+                </table:template>
+            </table:Column>
+
+            <!-- TicketVolume -->
+            <table:Column width="14rem">
+                <table:customData>
+                    <c:CustomData key="p13nData" value='\{"columnKey": "TicketVolume", "columnIndex" : "30", "filterProperty": "TicketVolume"}'/>
+                </table:customData>
+					<Button type="Transparent"  text="Ticket Volume" iconFirst = "false" icon="sap-icon://information" press="sap.m.MessageBox.information('Net Load Volume')" class="sapUiSmallMarginLeft customButtonTextColor"/>
+                <table:template>
+                <l:HorizontalLayout>
+                <smartField:SmartField value="{TicketVolume}" change="onTicketVolChange" editable="{parts:[{path: 'SapStatus'},{path: 'ZNomHdr'}], formatter: '.formatter.enableTicketVol'}"/>
+                   <Text text="{SAPUnit}"  class="sapUiSmallMarginBegin"/>
+                  <Button id="undoTicketButton" icon="sap-icon://reset" press="onUndoTicketVolPress" class="sapUiSmallMarginBegin" visible="{parts:[{path: 'PrevTicketVolume'}], formatter: '.formatter.previousVolVisible'}" />
+                </l:HorizontalLayout>
+                </table:template>
+            </table:Column>
+
+
+                </table:columns>
+            </table:Table>
+
+			</smarttable:SmartTable>
+            </core:FragmentDefinition>

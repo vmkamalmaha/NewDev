@@ -1,0 +1,207 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+<edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="CodeList"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+</edmx:Reference>
+<edmx:DataServices m:DataServiceVersion="2.0">
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZP2C_MARINES_WORKBOOK_API_SRV" xml:lang="en" sap:schema-version="1">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+<EntityType Name="MarinesObligationHdr" sap:content-version="1">
+<Key>
+<PropertyRef Name="Identifier"/>
+</Key>
+<Property Name="Identifier" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<NavigationProperty Name="MarinesObligationDetailSet" Relationship="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationHdrToItem" FromRole="FromRole_MarinesObligationHdrToItem" ToRole="ToRole_MarinesObligationHdrToItem"/>
+</EntityType>
+<EntityType Name="MarinesObligationItem" sap:content-version="1">
+<Key>
+<PropertyRef Name="ID"/>
+</Key>
+<Property Name="Carrier" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Carrier" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CarrierVehicle" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Vehicle Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DeliveryReference" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="30 Characters" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Matkl" Type="Edm.String" MaxLength="9" sap:unicode="false" sap:label="Material Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ToleranceMin" Type="Edm.Decimal" Precision="5" Scale="2" sap:unicode="false" sap:label="Tolerance min in %" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="GUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ToleranceMax" Type="Edm.Decimal" Precision="5" Scale="2" sap:unicode="false" sap:label="Tolerance max in %" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="NominalQuantity" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Nominal Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="InvoiceQuantity" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Invoice Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="IsTptTicketUpdated" Type="Edm.Boolean" sap:unicode="false" sap:label="Indicator" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="SAPLocation" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Location ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="PrevNomVolume" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Previous Nominal Volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="NomNumber" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Nomination no." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="PrevTicketVolume" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Previous Tciket Volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ScheduledMaterialDesc" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DemandMaterialDesc" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vehicleid" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="TPT Vehicle CODE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="SapStatus" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="TPT Item Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CargoReference" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Cargo Reference" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="TradeNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Trade Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="SectionVal" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Item/Section" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Obligation" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Obligation Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Grade" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Grade" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Strategy" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Strategy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="MOTId" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="TPT MOT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="MOTVal_Value" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Mode of Transport" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Trader" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Trader" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="LoadLocation" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Load Location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="TitleTransferDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Title Transfer Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="LoadWindow" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Load Window" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DeliveryWindow" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Delivery Window" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="SAPContract" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Sales document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="SAPContractItem" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="Sales doc. item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="YNomItm" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Nom. key item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="YNomHdr" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Nomination no." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ZNomHdr" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Nomination no." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ZNomItm" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Nom. key item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ScheduledMaterial" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Sched.Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DemandMaterial" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CounterParty" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Counterparty ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="BuySell" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Buy or Sell" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Incoterms" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Incoterms" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Vessel" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Vessel Details" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Shipper" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Shipper ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="FCCharterDoc" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Charter Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ShipTo" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="ContrPartner" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ShipToLocation" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Specific Ship-To Location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="TPTLocation" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Transfer Point Location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="TPTLocationId" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Location ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CargoDestination" Type="Edm.String" MaxLength="200" sap:unicode="false" sap:label="Cargo Destination" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ContractVolume" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Contract Volume(BBL)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ZeroOutVolume" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Zero-out volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="NomVolume" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Nominal volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="BLDate" Type="Edm.DateTime" Precision="8" sap:unicode="false" sap:label="Bill of Lading Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="TicketVolume" Type="Edm.Decimal" Precision="15" Scale="2" sap:unicode="false" sap:label="Ticket volume" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ErrorCode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Error Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="TransportSystem" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Trans system" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="InterCompanyDeal" Type="Edm.Boolean" sap:unicode="false" sap:label="Indicator" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Plant" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="DeliveryPeriodSAPformat" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="char8" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="SAPUnit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Base Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+<Property Name="Unit" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="TPT Trade UoM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ContractUrl" Type="Edm.String" MaxLength="400" sap:unicode="false" sap:label="Contract URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="YNomUrl" Type="Edm.String" MaxLength="400" sap:unicode="false" sap:label="Y Nom URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="ZNomUrl" Type="Edm.String" MaxLength="400" sap:unicode="false" sap:label="Z Nom URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="RecordType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Record Type(P=Buy,I=InterCompany,S=Sell)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<NavigationProperty Name="ErrorDetailSet" Relationship="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationItemToErrorDetail" FromRole="FromRole_MarinesObligationItemToErrorDetail" ToRole="ToRole_MarinesObligationItemToErrorDetail"/>
+</EntityType>
+<EntityType Name="ErrorDetail" sap:content-version="1">
+<Key>
+<PropertyRef Name="Id"/>
+</Key>
+<Property Name="Id" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Type" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Message" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ShipToVH" sap:content-version="1">
+<Key>
+<PropertyRef Name="SAPContract"/>
+<PropertyRef Name="BuySell"/>
+<PropertyRef Name="Conpat"/>
+</Key>
+<Property Name="SAPContract" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Sales document" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+<Property Name="BuySell" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Deal Indicator" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+<Property Name="Conpat" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Contract" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Contract_Relevant" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Can Be Selected ?" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Name1" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Name2" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Street" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="City" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Post_Code" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Country" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CompName" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="CompAddress" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="Taxjurcode" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="GS_SH" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ShipperVH" sap:content-version="1">
+<Key>
+<PropertyRef Name="Shipper"/>
+</Key>
+<Property Name="Shipper" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Shipper" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+</EntityType>
+<EntityType Name="ZCDSV_P2C_E2257_CARRIER_VHType" sap:label="Carrier Value Help" sap:content-version="1">
+<Key>
+<PropertyRef Name="Carrier"/>
+<PropertyRef Name="Vehicle"/>
+</Key>
+<Property Name="Carrier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="VehicleText" sap:label="Carrier" sap:quickinfo="TD carrier (vendor account number)"/>
+<Property Name="Vehicle" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Vehicle Number" sap:quickinfo="TD Vehicle Number"/>
+<Property Name="VehicleText" Type="Edm.String" MaxLength="40" sap:label="Vehicle text" sap:quickinfo="TD vehicle header text"/>
+</EntityType>
+<EntityType Name="ZCDSV_P2C_E2257_FC_CHARTER_VHType" sap:label="FC Charter value help" sap:content-version="1">
+<Key>
+<PropertyRef Name="Fccharterdoc"/>
+</Key>
+<Property Name="Fccharterdoc" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="Fccharterdesc" sap:label="Location ID"/>
+<Property Name="Fccharterdesc" Type="Edm.String" MaxLength="60" sap:label="Location name" sap:quickinfo="Location name (used by system owner)"/>
+</EntityType>
+<EntityType Name="ZCDSV_P2C_E2257_TRANSPORT_VHType" sap:label="Transport system Value help" sap:content-version="1">
+<Key>
+<PropertyRef Name="Tsyst"/>
+</Key>
+<Property Name="Tsyst" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="Tsnam" sap:label="Transport system"/>
+<Property Name="Tsnam" Type="Edm.String" MaxLength="60" sap:label="System name" sap:quickinfo="OIL-TSW: Transport system name"/>
+</EntityType>
+<Association Name="MarinesObligationItemToErrorDetail" sap:content-version="1">
+<End Type="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationItem" Multiplicity="1" Role="FromRole_MarinesObligationItemToErrorDetail"/>
+<End Type="ZP2C_MARINES_WORKBOOK_API_SRV.ErrorDetail" Multiplicity="*" Role="ToRole_MarinesObligationItemToErrorDetail"/>
+</Association>
+<Association Name="MarinesObligationHdrToItem" sap:content-version="1">
+<End Type="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationHdr" Multiplicity="*" Role="FromRole_MarinesObligationHdrToItem"/>
+<End Type="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationItem" Multiplicity="*" Role="ToRole_MarinesObligationHdrToItem"/>
+</Association>
+<EntityContainer Name="ZP2C_MARINES_WORKBOOK_API_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+<EntitySet Name="ZCDSV_P2C_E2257_CARRIER_VH" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.ZCDSV_P2C_E2257_CARRIER_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZCDSV_P2C_E2257_FC_CHARTER_VH" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.ZCDSV_P2C_E2257_FC_CHARTER_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZCDSV_P2C_E2257_TRANSPORT_VH" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.ZCDSV_P2C_E2257_TRANSPORT_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="MarinesObligationHdrSet" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationHdr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="MarinesObligationItemSet" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ErrorDetailSet" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.ErrorDetail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ShipToVHSet" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.ShipToVH" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<EntitySet Name="ShipperVHSet" EntityType="ZP2C_MARINES_WORKBOOK_API_SRV.ShipperVH" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+<AssociationSet Name="MarinesObligationItemToErrorDetailSet" Association="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationItemToErrorDetail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="MarinesObligationItemSet" Role="FromRole_MarinesObligationItemToErrorDetail"/>
+<End EntitySet="ErrorDetailSet" Role="ToRole_MarinesObligationItemToErrorDetail"/>
+</AssociationSet>
+<AssociationSet Name="MarinesObligationHdrToItemSet" Association="ZP2C_MARINES_WORKBOOK_API_SRV.MarinesObligationHdrToItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="MarinesObligationHdrSet" Role="FromRole_MarinesObligationHdrToItem"/>
+<End EntitySet="MarinesObligationItemSet" Role="ToRole_MarinesObligationHdrToItem"/>
+</AssociationSet>
+</EntityContainer>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZP2C_MARINES_WORKBOOK_API_SRV.ZP2C_MARINES_WORKBOOK_API_SRV_Entities">
+<Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+</Annotations>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/sap/ZP2C_MARINES_WORKBOOK_API_SRV/$metadata"/>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="https://sazsus18ci.shc.network.sbx:8443/sap/opu/odata/sap/ZP2C_MARINES_WORKBOOK_API_SRV/$metadata"/>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>

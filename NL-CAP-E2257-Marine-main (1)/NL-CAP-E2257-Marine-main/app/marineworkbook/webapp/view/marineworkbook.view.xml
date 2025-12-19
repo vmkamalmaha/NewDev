@@ -1,0 +1,93 @@
+<mvc:View controllerName="marineworkbook.controller.marineworkbook"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:smarttable="sap.ui.comp.smarttable"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:table="sap.ui.table"
+	xmlns:l="sap.ui.layout"
+	xmlns:smartField="sap.ui.comp.smartfield"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:c="sap.ui.core"
+	xmlns:mc="sap.suite.ui.microchart">
+  <Page showFooter="true" floatingFooter="true" title="Marine Scheduler Workbook" showNavButton="true" titleAlignment="Start">
+	<IconTabHeader mode="Inline" id="idIconTabBarNoIcons" select="onTabSelect">
+		<items>
+			<IconTabFilter id="contractId" text="Marine Cargoes" key="marineKey"/>	
+		</items>
+	</IconTabHeader>
+	<f:DynamicPage id="marinePage" fitContent="true" showFooter="false">
+		<f:header>
+			<f:DynamicPageHeader id="marinePageInner" >
+				<smartFilterBar:SmartFilterBar search="onSearchFilterbar" id="marineSmartFilterBar" enableBasicSearch="false" persistencyKey="contractSmartFilterManifest" entitySet="MarineScheduler" showClearOnFB="true" >
+					 <smartFilterBar:controlConfiguration>
+						<!-- <smartFilterBar:ControlConfiguration index="4" key="DeliveredOrder" label="Buy/Sell" visibleInAdvancedArea="true">
+							<smartFilterBar:customControl>
+								<l:HorizontalLayout>
+									<CheckBox text="Buy" id="buyChkBx"/>
+									<CheckBox text="Sell" id="sellChkBx" />
+								</l:HorizontalLayout>
+							</smartFilterBar:customControl>
+						</smartFilterBar:ControlConfiguration> -->
+						<smartFilterBar:ControlConfiguration index="3" key="TradeNumber" visibleInAdvancedArea="true" hasValueHelpDialog="false">
+						<smartFilterBar:customControl>
+								<l:HorizontalLayout>
+									<TextArea id="txtarea" valueLiveUpdate="true"
+									liveChange="onLiveChangePreventNewline"/>
+								</l:HorizontalLayout>
+							</smartFilterBar:customControl>
+						</smartFilterBar:ControlConfiguration>
+
+						<smartFilterBar:ControlConfiguration index="2" key="CargoReference" visibleInAdvancedArea="true" hasValueHelpDialog="false">
+						<smartFilterBar:customControl>
+								<l:HorizontalLayout>
+								<TextArea id="txtareacargo"
+									valueLiveUpdate="true"
+									liveChange="onLiveChangePreventNewline"/>
+
+								</l:HorizontalLayout>
+							</smartFilterBar:customControl>
+						</smartFilterBar:ControlConfiguration>
+
+
+						<smartFilterBar:ControlConfiguration index="9" key="LoadWindow" label="Load Window" visibleInAdvancedArea="true" conditionType="{	
+                                module: 'sap.ui.comp.config.condition.DateRangeType' 
+                            }">
+                        </smartFilterBar:ControlConfiguration>
+
+
+					</smartFilterBar:controlConfiguration> 
+
+					<smartFilterBar:layoutData>
+						<FlexItemData shrinkFactor="0"/>
+					</smartFilterBar:layoutData>
+				</smartFilterBar:SmartFilterBar>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+		 <VBox id="contentContainer" height="93%">
+			 <c:Fragment fragmentName="marineworkbook.view.fragment.marineSmartTable" type="XML" />
+			</VBox>
+		</f:content> 
+			
+	</f:DynamicPage>
+	<footer>
+				<OverflowToolbar>
+					<Button icon="sap-icon://message-popup"
+							text="{/messagesLength}"
+							type="Emphasized"
+							press="handleMessageViewPress"
+							visible="{viewSettingsModel>/ErrorBtnVis}"
+							/>
+					<ToolbarSpacer/>
+				</OverflowToolbar>
+			</footer>
+	</Page>
+	<!-- <VBox id="fragmentContainer"/> -->
+	<!-- <core:Fragment fragmentName="schedulerworkbook.view.fragment.contract" type="XML"/>
+	<core:Fragment fragmentName="schedulerworkbook.view.fragment.transfer" type="XML"/> -->
+</mvc:View>
+
+
